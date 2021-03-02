@@ -2,21 +2,28 @@
 
 \documentclass{article}
 \usepackage{tikz}
+\usepackage{xeCJK}
 \usetikzlibrary{positioning, shapes.geometric}
+
+% 中文设置
+\setCJKmainfont{思源宋体}
+% 英文设置
+\setmainfont{Consolas}
+
 \begin{document}
 \begin{tikzpicture}[node distance=10pt]
-    \node[draw, rounded corners](start) {Start};
-    \node[draw, below=of start](step 1) {step 1};
-    \node[draw, below=of step 1](step 2) {step 2};
-    \node[draw, diamond, aspect=2, below=of step 2]  (choice) {Choice};
-    \node[draw, right=30pt of choice] (step x) {Step x}; 
-    \node[draw, rounded corners, below=20pt of choice] (end) {End};
+    \node[draw, rounded corners](start) {起点};
+    \node[draw, below=of start](step 1) {QA会签};
+    \node[draw, below=of step 1](step 2) {采购签核};
+    \node[draw, diamond, aspect=2, below=of step 2]  (choice) {isChoose};
+    \node[draw, right=30pt of choice] (step x) {Mail2}; 
+    \node[draw, rounded corners, below=20pt of choice] (end) {结束};
 
     \draw[->] (start) -- (step 1);
     \draw[->] (step 1) -- (step 2);
     \draw[->] (step 2) -- (choice);
-    \draw[->] (choice) -- node[left] {Yes} (end);
-    \draw[->] (choice) -- node[above] {No} (step x);
+    \draw[->] (choice) -- node[left] {不合格} (end);
+    \draw[->] (choice) -- node[above] {合格} (step x);
     \draw[->] (step x) -- (step x|-step 2) -> (step 2);
 \end{tikzpicture}
 \end{document}
